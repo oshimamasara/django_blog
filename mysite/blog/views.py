@@ -8,3 +8,7 @@ def about(request):
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
     return render(request, 'blog/detail.html', {'post':post})
+
+def index(request):
+    posts = Post.objects.order_by('-created_datetime')
+    return render(request, 'blog/index.html',{'posts':posts})
