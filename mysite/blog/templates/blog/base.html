@@ -1,12 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
   <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+  <script type="text/javascript" src="{% static 'js/blog.js' %}"></script>
   <!-- Googleアナリティクス -->
   <!-- Bootstrap etc-->
 </head>
 <body>
 {% block content %}
 {% endblock %}
+<button onclick="topFunction()" id="myBtn" title="Go to top">▲</button>
 </body>
 </html>
