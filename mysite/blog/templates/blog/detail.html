@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>{{ post.title }}/ぼくのブログ</title>
-</head>
-<body>
+{% extends 'blog/base.html' %}
+{% block title %} {{ post.title }}:僕のブログ {% endblock %}
+{% block content %}
 <h1>{{ post.title }}</h1>
 {{ post.formatted_markdown|safe }}
 
@@ -14,5 +11,4 @@
 {{ post.updated_datetime }}
 </div>
 <hr>
-</body>
-</html>
+{% endblock %}
