@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
+from django.urls import reverse
 
 # Create your models here.
 class Post(models.Model):
@@ -17,8 +18,11 @@ class Post(models.Model):
     def formatted_markdown(self):
         return markdownify(self.text)
 
-def save(self, *args, **kwargs):
-    self.slug = slugify(self.title)
-    super().save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
 
+    def get_absolute_url(self):
+        return reverse('post:post_detail',
+                   args=[str(self.slug)])
 

@@ -17,11 +17,24 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
+from django.contrib.sitemaps import GenericSitemap
+from blog.models import Post
+
+latest_post_list = Post.objects.order_by('-updated_datetime')
+sitemaps = {
+    'blog': GenericSitemap({
+        #'queryset': Post.objects.all(),
+        'queryset':latest_post_list,
+        'date_field': 'updated_datetime',
+    }, priority=0.9),
+}
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('blog.urls')),
-    path('markdownx/', include('markdownx.urls'))
+    path('markdownx/', include('markdownx.urls')),
+    path('sitemap.xml', sitemap, {'sitemaps':sitemaps},name='django.contrib.sitemaps.views.sitemap'),
 ]
 
 if settings.DEBUG:
